@@ -1,24 +1,13 @@
-import React, { useEffect} from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import axios from 'axios';
 import configureStore from "../Redux/store";
 import * as Routes from './Routes'
 import Navigation from './Navigation';
 
 const store = configureStore();
 
-const axiosConfig = () => {
-  axios.defaults.baseURL = 'https://receipt-backend.herokuapp.com';
-  axios.defaults.headers = {"Access-Control-Allow-Origin": "*"}
-}
-
 const App = () => {
-  useEffect(() => {
-    // basic setup after App mounted
-    axiosConfig();
-  },[])
-
   return (
     <Provider store={store}>
       <Router>

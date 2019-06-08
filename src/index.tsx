@@ -3,6 +3,10 @@ import { render } from 'react-dom';
 import './styles.scss';
 import * as serviceWorker from './serviceWorker';
 import App from "./views/App";
+import {axiosConfig} from './config'
+
+// initial setup
+axiosConfig();
 
 const rootElement = document.getElementById("root");
 render(<App />, rootElement);
