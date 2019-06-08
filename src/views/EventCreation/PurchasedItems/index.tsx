@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./PurchasedItems.module.scss";
-import { Fab } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+// import styles from "./PurchasedItems.module.scss";
+// import { Fab } from "@material-ui/core";
+// import AddIcon from "@material-ui/icons/Add";
 
 import MaterialTable from "material-table";
 
@@ -18,7 +18,7 @@ import MaterialTable from "material-table";
 const PurchasedItems = (props: any) => {
   return (
     <div style={{ maxWidth: "100%" }}>
-      {/* TODO: turned off because MAterialTable do it out of the box - to customize in the future
+      {/* TODO: turned off because MaterialTable do it out of the box - to customize in the future
        <div className={styles["table__header"]}>
         <span className={styles["table__header__label"]}>Pozycje</span>
         <Fab color="primary" aria-label="Add">

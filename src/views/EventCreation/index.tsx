@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import { Formik } from "formik";
+import { withRouter } from 'react-router';
 import { Button, TextField } from "@material-ui/core";
 import styles from "./styles.module.scss";
 import PurchasedItems from "./PurchasedItems";
@@ -40,10 +41,9 @@ const createEvent = (values: any) => {
     "positions": values.positions,
   }
   return axios.post('/event', payload)
-  // TODO: redirect to page with event URL
 }
 
-const EventCreation = () => {
+const EventCreation = (props :any) => {
   return (
     <div>
       <h1>EventCreation</h1>
@@ -51,6 +51,7 @@ const EventCreation = () => {
         initialValues={initialValues}
         onSubmit={async (values, formik) => {
           await createEvent(values)
+          .then(()=> props.history.push('/login'))
           .catch(err => alert(err))
           .finally(()=> formik.setSubmitting(false))
         }}
@@ -158,4 +159,4 @@ const EventCreation = () => {
   );
 };
 
-export default EventCreation;
+export default withRouter(EventCreation);
