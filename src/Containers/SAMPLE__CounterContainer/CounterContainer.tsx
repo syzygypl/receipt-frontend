@@ -6,7 +6,7 @@ import {
   decrementCounter,
   incrementCounter
 } from '../../Redux/Actions/counter';
-import Counter from "../../Components/Counter";
+import Counter from "../../Components/SAMPLE__Counter";
 
 interface StateToProps {
   readonly count: CounterState;
