@@ -39,7 +39,8 @@ const createEvent = (values: any) => {
     "imageUrl": values.receiptPhotoURL,
     "positions": values.positions,
   }
-  return axios.post('https://receipt-backend.herokuapp.com/event', payload)
+  return axios.post('/event', payload)
+  // TODO: redirect to page with event URL
 }
 
 const EventCreation = () => {
@@ -49,8 +50,9 @@ const EventCreation = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, formik) => {
-          await createEvent(values);
-          formik.setSubmitting(false);
+          await createEvent(values)
+          .catch(err => alert(err))
+          .finally(()=> formik.setSubmitting(false))
         }}
       >
         {({
@@ -145,7 +147,7 @@ const EventCreation = () => {
               variant="outlined"
               fullWidth
               type="submit"
-              // disabled={isSubmitting}
+              disabled={isSubmitting}
             >
               Submit
             </Button>

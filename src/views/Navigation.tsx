@@ -13,9 +13,9 @@ const Navigation = () => {
     <div style={navStyles}>
       <Link to="/">Welcome Page</Link>
 
-      <Link to="/login">Login</Link>
-
       <Link to="/event-create">Create event</Link>
+
+      <Link to="/login">Login</Link>
 
       <Link to="/event-edit">Edit event</Link>
 
