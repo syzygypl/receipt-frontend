@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from "react-router";
  import {Button, Typography, Container, FormControl, InputLabel, Input} from '@material-ui/core';
 import styles from './styles.module.scss';
 
@@ -6,7 +7,7 @@ interface LoginScreenState {
   inputValue: string;
 }
 interface LoginScreenProps {
-  eventName: string;
+  // eventName: string;
 }
 
 class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState> {
@@ -20,7 +21,11 @@ class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState> {
   }
   handleLoginClick = ():void => {
     // TO DO preprare login action
-    console.log('nie ma')
+    if(this.state.inputValue === "") {
+      alert('uzupełnij login')
+    }
+    console.log(this.state.inputValue)
+
   }
   render() {
     return (
