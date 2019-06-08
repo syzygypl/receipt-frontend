@@ -2,12 +2,14 @@ import React from 'react'
 import { withRouter } from "react-router";
  import {Button, Typography, Container, FormControl, InputLabel, Input} from '@material-ui/core';
 import styles from './styles.module.scss';
+import {RouteComponentProps} from "react-router"
+
+type LoginScreenProps = RouteComponentProps<any> & {
+  someString: string,
+}
 
 interface LoginScreenState {
   inputValue: string;
-}
-interface LoginScreenProps {
-  // eventName: string;
 }
 
 class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState> {
@@ -21,10 +23,13 @@ class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState> {
   }
   handleLoginClick = ():void => {
     // TO DO preprare login action
+    console.log(this.state.inputValue)
+
     if(this.state.inputValue === "") {
       alert('uzupełnij login')
+    } else {
+      this.props.history.push('/event-edit')
     }
-    console.log(this.state.inputValue)
 
   }
   render() {
@@ -40,9 +45,9 @@ class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState> {
           <Button
             fullWidth
             variant='contained'
-            type='submit' 
-            size='medium' 
-            onClick={this.handleLoginClick}  
+            type='submit'
+            size='medium'
+            onClick={this.handleLoginClick}
             color='primary'>Login</Button>
           </div>
         </FormControl>
@@ -50,4 +55,4 @@ class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState> {
     )
   }
 }
-export default LoginScreen;
+export default withRouter(LoginScreen);
