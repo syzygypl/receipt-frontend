@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import { Formik } from "formik";
 import { Button, TextField } from "@material-ui/core";
 import styles from "./styles.module.scss";
@@ -16,21 +17,30 @@ const initialValues = {
   owner: "",
   account: "",
   receiptPhotoURL: "",
-  positions: [],
+  positions: [
+    {
+      name: "pizza",
+      count: 3,
+      price: 5,
+    },
+    {
+      name: "pizza1",
+      count: 3,
+      price: 5,
+    },
+  ],
 };
 
-const mockedItems = [
-  {
-    name: "pizza",
-    count: 3,
-    price: 5,
-  },
-  {
-    name: "pizza1",
-    count: 3,
-    price: 5,
-  },
-];
+const createEvent = (values: any) => {
+  const payload = {
+    "name": values.eventName,
+    "ownerName": values.owner,
+    "account": values.account,
+    "imageUrl": values.receiptPhotoURL,
+    "positions": values.positions,
+  }
+  return axios.post('https://receipt-backend.herokuapp.com/event', payload)
+}
 
 const EventCreation = () => {
   return (
@@ -38,8 +48,9 @@ const EventCreation = () => {
       <h1>EventCreation</h1>
       <Formik
         initialValues={initialValues}
-        onSubmit={values => {
-          console.log(values);
+        onSubmit={async (values, formik) => {
+          await createEvent(values);
+          formik.setSubmitting(false);
         }}
       >
         {({
@@ -104,9 +115,25 @@ const EventCreation = () => {
             <section className={`${styles["form__item"]} ${styles["table"]}`}>
               <PurchasedItems
                 name="positions"
-                rows={mockedItems}
-                onChange={(data: any) => {
-                  setFieldValue("positions", data);
+                rows={values.positions}
+                onAdd={(data: any) => {
+                  const updatedPositions = [
+                    ...values.positions,
+                    data
+                  ]
+                  setFieldValue("positions", updatedPositions);
+                }}
+                onDelete={(data: any) => {
+                  const updatedPositions = values.positions.filter(position => position.name !== data.name)
+                  setFieldValue("positions", updatedPositions);
+                }}
+                onUpdate={(newData: any, oldData: any) => {
+                  const positionsWithoutUpdatingItem = values.positions.filter(position => position.name !== oldData.name)
+                  const updatedPositions = [
+                    ...positionsWithoutUpdatingItem,
+                    newData
+                  ]
+                  setFieldValue("positions", updatedPositions);
                 }}
               />
             </section>
@@ -118,7 +145,7 @@ const EventCreation = () => {
               variant="outlined"
               fullWidth
               type="submit"
-              disabled={isSubmitting}
+              // disabled={isSubmitting}
             >
               Submit
             </Button>
